@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>One Month Max</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --mustard: #C9933A;
-    --mustard-light: #E8C97A;
+    --mustard: #D4782A;
+    --mustard-light: #F0B865;
     --tan: #F2EAD8;
     --tan-dark: #D9CDB5;
-    --blue: #7EA8BE;
-    --blue-dark: #4A7A95;
+    --blue: #5B9FBF;
+    --blue-dark: #2E7A9E;
     --blue-light: #C4DCE8;
+    --coral: #D95F4B;
     --cream: #FAF7F0;
     --dark: #2C2416;
     --mid: #5C4F3A;
@@ -45,7 +46,7 @@
   }
 
   .nav-logo {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.2rem;
     letter-spacing: 0.04em;
     color: var(--dark);
@@ -115,7 +116,7 @@
   }
 
   .band-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: clamp(3rem, 6vw, 5.5rem);
     line-height: 1.05;
     color: var(--dark);
@@ -150,7 +151,7 @@
   }
 
   .listen-label {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 2rem;
     color: var(--dark);
     flex-shrink: 0;
@@ -200,7 +201,7 @@
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 2.2rem;
     color: var(--dark);
     margin-bottom: 2.5rem;
@@ -223,7 +224,7 @@
   }
 
   .show-date {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.6rem;
     color: var(--mustard);
     line-height: 1.1;
@@ -265,6 +266,8 @@
 
   .show-tickets.free:hover { background: var(--dark); }
 
+  .show-past { opacity: 0.45; }
+
   /* ABOUT */
   .about {
     display: grid;
@@ -273,7 +276,7 @@
   }
 
   .about-text {
-    background: var(--mustard);
+    background: linear-gradient(135deg, var(--mustard) 0%, var(--coral) 100%);
     padding: 5rem 3rem;
     display: flex;
     flex-direction: column;
@@ -284,7 +287,7 @@
   .about-text .section-eyebrow { color: rgba(255,255,255,0.7); }
 
   .about-text h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     color: white;
     line-height: 1.15;
@@ -325,6 +328,12 @@
     border: 1px solid rgba(255,255,255,0.12);
   }
 
+  .member-instrument {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    margin-left: 0.2rem;
+  }
+
   .about-members p {
     font-size: 0.95rem;
     color: rgba(255,255,255,0.5);
@@ -345,7 +354,7 @@
   }
 
   .contact-bar h3 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     font-size: 1.6rem;
     color: white;
   }
@@ -404,6 +413,65 @@
     color: rgba(255,255,255,0.2);
   }
 
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--tan);
+    padding: 0.85rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 5px solid #F2C4B8;
+    border-bottom: 5px solid #A8D4C4;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    animation: marquee 70s linear infinite;
+  }
+
+  .marquee-strip:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee-sep {
+    color: var(--dark);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* MEDIA STRIP */
+  .media-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 440px;
+    overflow: hidden;
+  }
+
+  .media-strip .media-cell {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .media-strip .media-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .media-strip .media-cell:hover img {
+    transform: scale(1.04);
+  }
+
   /* RESPONSIVE */
   @media (max-width: 700px) {
     .hero { grid-template-columns: 1fr; }
@@ -417,6 +485,8 @@
     .nav-links { display: none; }
     .listen-section { gap: 1.5rem; }
     .contact-bar { flex-direction: column; align-items: flex-start; }
+    .media-strip { grid-template-columns: 1fr; height: auto; }
+    .media-strip .media-cell { height: 65vw; }
   }
 </style>
 </head>
@@ -426,6 +496,7 @@
   <a class="nav-logo" href="#">One Month Max</a>
   <ul class="nav-links">
     <li><a href="#shows">Shows</a></li>
+    <li><a href="#photos">Photos</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -434,26 +505,71 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-photo">
-    <img src="band.jpg" alt="One Month Max band photo on a rooftop in Somerville">
+    <img src="band.jpeg" alt="One Month Max band photo on a rooftop in Somerville">
   </div>
   <div class="hero-text">
     <p class="hero-eyebrow">Indie · Somerville, MA</p>
     <h1 class="band-name">One<br>Month<br>Max</h1>
-    <p class="hero-bio">Started as weekly jams jumping around houses in Somerville. Jazz, classical, metal, and everything in between. Our setlist screams "I learned guitar in 2016, but things are better now."</p>
+    <p class="hero-bio">Started as weekly jams jumping around houses in Somerville. Our music screams "I learned guitar in 2016, but things are better now."</p>
     <p class="hero-location">Matt · Nate · Ryan · Sam · Emma · Berthy</p>
   </div>
 </section>
 
-<!-- LISTEN -->
-<section class="listen-section">
-  <h2 class="listen-label">Listen</h2>
-  <div class="stream-links">
-    <a class="stream-link" href="https://open.spotify.com" target="_blank">Spotify</a>
-    <a class="stream-link" href="https://music.apple.com" target="_blank">Apple Music</a>
-    <a class="stream-link" href="https://soundcloud.com" target="_blank">SoundCloud</a>
-    <a class="stream-link" href="https://bandcamp.com" target="_blank">Bandcamp</a>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span style="font-family:'Bebas Neue'; font-size:1.6rem; letter-spacing:0.08em; color:var(--dark);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.8rem; font-weight:300; letter-spacing:0.06em; color:var(--mustard);">one month max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:0.9rem; color:var(--coral);">1monthMx</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-style:italic; font-size:1.15rem; color:var(--blue-dark);">One Month Max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.7rem; font-weight:500; letter-spacing:0.35em; text-transform:uppercase; color:var(--mid);">one · month · max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Bebas Neue'; font-size:2.2rem; color:var(--mustard);">OMM</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:0.75rem; color:var(--dark);">onemonthmax</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-size:1.4rem; font-weight:700; color:var(--coral);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.85rem; font-weight:500; font-style:italic; color:var(--blue-dark);">1 Month Max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:0.15em; color:var(--mustard);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:1rem; color:var(--dark);">1MM</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-size:0.95rem; font-style:italic; font-weight:400; color:var(--mid);">one month max</span>
+    <span class="marquee-sep">·</span>
+    <!-- duplicate for seamless loop -->
+    <span style="font-family:'Bebas Neue'; font-size:1.6rem; letter-spacing:0.08em; color:var(--dark);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.8rem; font-weight:300; letter-spacing:0.06em; color:var(--mustard);">one month max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:0.9rem; color:var(--coral);">1monthMx</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-style:italic; font-size:1.15rem; color:var(--blue-dark);">One Month Max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.7rem; font-weight:500; letter-spacing:0.35em; text-transform:uppercase; color:var(--mid);">one · month · max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Bebas Neue'; font-size:2.2rem; color:var(--mustard);">OMM</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:0.75rem; color:var(--dark);">onemonthmax</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-size:1.4rem; font-weight:700; color:var(--coral);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'DM Sans'; font-size:0.85rem; font-weight:500; font-style:italic; color:var(--blue-dark);">1 Month Max</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Bebas Neue'; font-size:1.3rem; letter-spacing:0.15em; color:var(--mustard);">ONE MONTH MAX</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Space Mono'; font-size:1rem; color:var(--dark);">1MM</span>
+    <span class="marquee-sep">·</span>
+    <span style="font-family:'Fraunces'; font-size:0.95rem; font-style:italic; font-weight:400; color:var(--mid);">one month max</span>
+    <span class="marquee-sep">·</span>
   </div>
-</section>
+</div>
 
 <!-- SHOWS -->
 <section class="shows" id="shows">
@@ -461,18 +577,52 @@
   <h2 class="section-title">Upcoming Shows</h2>
   <div class="shows-list">
 
-    <div class="show-item">
+    <div class="show-item show-past">
       <div class="show-date">
         <span class="month">May</span>
-        31
+        9
       </div>
       <div>
         <div class="show-venue">Somerville Porchfest</div>
         <div class="show-details">425 Medford St · East Zone · 5:00–6:00 pm</div>
       </div>
-      <a class="show-tickets free" href="https://somervilleartscouncil.org/view/porchfest-single-entry/entry/64702/" target="_blank">Free · Info</a>
+      <span class="show-tickets free" style="opacity:0.5;">Past</span>
     </div>
 
+    <div class="show-item">
+      <div class="show-date">
+        <span class="month">Aug</span>
+        22
+      </div>
+      <div>
+        <div class="show-venue">JP Porchfest</div>
+        <div class="show-details">Details coming soon</div>
+      </div>
+      <a class="show-tickets free" href="https://www.jpporchfest.org/" target="_blank">Free · Info</a>
+    </div>
+
+    <div class="show-item">
+      <div class="show-date">
+        <span class="month">Aug</span>
+        29
+      </div>
+      <div>
+        <div class="show-venue">TBD</div>
+        <div class="show-details">Details coming soon</div>
+      </div>
+      <span class="show-tickets free">Free</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="media-strip" id="photos">
+  <div class="media-cell">
+    <img src="onemonthmax-2.jpg" alt="One Month Max" style="object-position: center 40%;">
+  </div>
+  <div class="media-cell">
+    <img src="hair%20shake-2026-05-09.gif" alt="One Month Max vibes" style="object-position: center 25%;">
   </div>
 </section>
 
@@ -480,20 +630,21 @@
 <section class="about" id="about">
   <div class="about-text">
     <p class="section-eyebrow">Who we are</p>
-    <h2>Bring your mom. Bring your friend's mom.</h2>
-    <p>Covers from every decade. Members from jazz, classical, and metal backgrounds. Three lifelong Massholes. We made it official for Porchfest — and we're not stopping there.</p>
+    <h2>We play something for everyone</h2>
+    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); font-style:italic; line-height:1.5;">Bring your mom. Bring your friend's mom. Bring your mom's friend's mom.</p>
+    <p>Music from every decade. Members from jazz, classical, and metal backgrounds. Three lifelong Massholes. We made it official for Porchfest — and we're not stopping there.</p>
   </div>
   <div class="about-members">
     <p class="section-eyebrow">The band</p>
     <div class="members-list">
-      <span class="member-tag">Matt</span>
-      <span class="member-tag">Nate</span>
-      <span class="member-tag">Ryan</span>
-      <span class="member-tag">Sam</span>
-      <span class="member-tag">Emma</span>
-      <span class="member-tag">Berthy</span>
+      <span class="member-tag">Matt <span class="member-instrument">Keys</span></span>
+      <span class="member-tag">Nate <span class="member-instrument">Drums</span></span>
+      <span class="member-tag">Ryan <span class="member-instrument">Bass</span></span>
+      <span class="member-tag">Sam <span class="member-instrument">Guitar</span></span>
+      <span class="member-tag">Emma <span class="member-instrument">Vox · Triangle</span></span>
+      <span class="member-tag">Berthy <span class="member-instrument">Guitar</span></span>
     </div>
-    <p>A rooftop in Somerville, some mismatched instruments, and a shared inability to stop adding songs to the setlist.</p>
+    <p>A rooftop in Somerville and a shared inability to stop adding songs to the setlist.</p>
   </div>
 </section>
 
@@ -503,16 +654,13 @@
     <h3>Get in touch</h3>
     <p>Booking, collabs, and general hellos welcome.</p>
   </div>
-  <a class="contact-email" href="mailto:hello@onemonthmax.com">hello@onemonthmax.com</a>
+  <a class="contact-email" href="mailto:onemonthmax@gmail.com">onemonthmax@gmail.com</a>
 </div>
 
 <!-- FOOTER -->
 <div class="social-bar">
   <div class="social-links">
-    <a href="https://instagram.com" target="_blank">Instagram</a>
-    <a href="https://tiktok.com" target="_blank">TikTok</a>
-    <a href="https://facebook.com" target="_blank">Facebook</a>
-    <a href="https://youtube.com" target="_blank">YouTube</a>
+    <a href="https://www.instagram.com/onemonthmax/" target="_blank">Instagram</a>
   </div>
   <p class="footer-copy">© 2026 One Month Max</p>
 </div>
