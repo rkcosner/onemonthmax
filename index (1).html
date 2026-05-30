@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Month Max</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --mustard: #C9933A;
+    --mustard-light: #E8C97A;
+    --tan: #F2EAD8;
+    --tan-dark: #D9CDB5;
+    --blue: #7EA8BE;
+    --blue-dark: #4A7A95;
+    --blue-light: #C4DCE8;
+    --cream: #FAF7F0;
+    --dark: #2C2416;
+    --mid: #5C4F3A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(250, 247, 240, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--tan-dark);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--mid);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--mustard); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 60px;
+  }
+
+  .hero-photo {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(0.85);
+  }
+
+  .hero-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 70%, var(--cream));
+  }
+
+  .hero-text {
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3.5rem 4rem 2.5rem;
+    gap: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    font-weight: 500;
+  }
+
+  .band-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .hero-bio {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--mid);
+    font-weight: 300;
+    max-width: 42ch;
+    border-left: 3px solid var(--mustard-light);
+    padding-left: 1.25rem;
+  }
+
+  .hero-location {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+  }
+
+  /* LISTEN */
+  .listen-section {
+    background: var(--blue-light);
+    padding: 4rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .listen-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+
+  .stream-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .stream-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: white;
+    padding: 0.6rem 1.25rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--blue-dark);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .stream-link:hover {
+    background: var(--blue-dark);
+    color: white;
+  }
+
+  /* SHOWS */
+  .shows {
+    padding: 5rem 2.5rem;
+    background: var(--tan);
+  }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--dark);
+    margin-bottom: 2.5rem;
+  }
+
+  .shows-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--tan-dark);
+    max-width: 800px;
+  }
+
+  .show-item {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--tan-dark);
+  }
+
+  .show-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--mustard);
+    line-height: 1.1;
+  }
+
+  .show-date .month {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .show-venue { font-size: 1rem; font-weight: 500; color: var(--dark); }
+  .show-details { font-size: 0.85rem; color: var(--mid); margin-top: 3px; }
+
+  .show-tickets {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--mustard);
+    padding: 0.5rem 1.1rem;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 100px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .show-tickets:hover { background: var(--dark); }
+
+  .show-tickets.free {
+    background: var(--blue-dark);
+  }
+
+  .show-tickets.free:hover { background: var(--dark); }
+
+  /* ABOUT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+
+  .about-text {
+    background: var(--mustard);
+    padding: 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .about-text .section-eyebrow { color: rgba(255,255,255,0.7); }
+
+  .about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: white;
+    line-height: 1.15;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 38ch;
+  }
+
+  .about-members {
+    background: var(--dark);
+    padding: 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .about-members .section-eyebrow { color: var(--mustard-light); }
+
+  .members-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+
+  .member-tag {
+    font-size: 0.85rem;
+    color: var(--tan);
+    background: rgba(255,255,255,0.08);
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .about-members p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-top: 0.5rem;
+  }
+
+  /* CONTACT */
+  .contact-bar {
+    background: var(--blue);
+    padding: 3rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .contact-bar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: white;
+  }
+
+  .contact-bar p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 0.25rem;
+  }
+
+  .contact-email {
+    display: inline-block;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    background: rgba(255,255,255,0.15);
+    padding: 0.65rem 1.5rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+  }
+
+  .contact-email:hover { background: rgba(255,255,255,0.25); }
+
+  /* FOOTER */
+  .social-bar {
+    background: var(--dark);
+    padding: 1.75rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .social-links a {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .social-links a:hover { color: var(--mustard-light); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-photo { height: 55vw; }
+    .hero-photo::after { background: linear-gradient(to top, var(--cream), transparent); }
+    .hero-text { padding: 2rem 1.5rem; }
+    .about { grid-template-columns: 1fr; }
+    .show-item { grid-template-columns: 4rem 1fr; }
+    .show-tickets { display: none; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .listen-section { gap: 1.5rem; }
+    .contact-bar { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">One Month Max</a>
+  <ul class="nav-links">
+    <li><a href="#shows">Shows</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo">
+    <img src="band.jpg" alt="One Month Max band photo on a rooftop in Somerville">
+  </div>
+  <div class="hero-text">
+    <p class="hero-eyebrow">Indie · Somerville, MA</p>
+    <h1 class="band-name">One<br>Month<br>Max</h1>
+    <p class="hero-bio">Started as weekly jams jumping around houses in Somerville. Jazz, classical, metal, and everything in between. Our setlist screams "I learned guitar in 2016, but things are better now."</p>
+    <p class="hero-location">Matt · Nate · Ryan · Sam · Emma · Berthy</p>
+  </div>
+</section>
+
+<!-- LISTEN -->
+<section class="listen-section">
+  <h2 class="listen-label">Listen</h2>
+  <div class="stream-links">
+    <a class="stream-link" href="https://open.spotify.com" target="_blank">Spotify</a>
+    <a class="stream-link" href="https://music.apple.com" target="_blank">Apple Music</a>
+    <a class="stream-link" href="https://soundcloud.com" target="_blank">SoundCloud</a>
+    <a class="stream-link" href="https://bandcamp.com" target="_blank">Bandcamp</a>
+  </div>
+</section>
+
+<!-- SHOWS -->
+<section class="shows" id="shows">
+  <p class="section-eyebrow">Live</p>
+  <h2 class="section-title">Upcoming Shows</h2>
+  <div class="shows-list">
+
+    <div class="show-item">
+      <div class="show-date">
+        <span class="month">May</span>
+        31
+      </div>
+      <div>
+        <div class="show-venue">Somerville Porchfest</div>
+        <div class="show-details">425 Medford St · East Zone · 5:00–6:00 pm</div>
+      </div>
+      <a class="show-tickets free" href="https://somervilleartscouncil.org/view/porchfest-single-entry/entry/64702/" target="_blank">Free · Info</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text">
+    <p class="section-eyebrow">Who we are</p>
+    <h2>Bring your mom. Bring your friend's mom.</h2>
+    <p>Covers from every decade. Members from jazz, classical, and metal backgrounds. Three lifelong Massholes. We made it official for Porchfest — and we're not stopping there.</p>
+  </div>
+  <div class="about-members">
+    <p class="section-eyebrow">The band</p>
+    <div class="members-list">
+      <span class="member-tag">Matt</span>
+      <span class="member-tag">Nate</span>
+      <span class="member-tag">Ryan</span>
+      <span class="member-tag">Sam</span>
+      <span class="member-tag">Emma</span>
+      <span class="member-tag">Berthy</span>
+    </div>
+    <p>A rooftop in Somerville, some mismatched instruments, and a shared inability to stop adding songs to the setlist.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-bar" id="contact">
+  <div>
+    <h3>Get in touch</h3>
+    <p>Booking, collabs, and general hellos welcome.</p>
+  </div>
+  <a class="contact-email" href="mailto:hello@onemonthmax.com">hello@onemonthmax.com</a>
+</div>
+
+<!-- FOOTER -->
+<div class="social-bar">
+  <div class="social-links">
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+    <a href="https://tiktok.com" target="_blank">TikTok</a>
+    <a href="https://facebook.com" target="_blank">Facebook</a>
+    <a href="https://youtube.com" target="_blank">YouTube</a>
+  </div>
+  <p class="footer-copy">© 2026 One Month Max</p>
+</div>
+
+</body>
+</html>
