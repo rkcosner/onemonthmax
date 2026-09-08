@@ -447,30 +447,117 @@
     flex-shrink: 0;
   }
 
-  /* MEDIA STRIP */
-  .media-strip {
+  /* GALLERY */
+  .gallery-section {
+    background: var(--cream);
+    padding: 5rem 2.5rem;
+  }
+
+  .gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 440px;
-    overflow: hidden;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 13rem;
+    gap: 0.6rem;
   }
 
-  .media-strip .media-cell {
-    overflow: hidden;
+  .gallery figure {
     position: relative;
+    overflow: hidden;
+    background: var(--tan);
+    cursor: zoom-in;
   }
 
-  .media-strip .media-cell img {
+  .gallery figure:focus-visible {
+    outline: 3px solid var(--mustard);
+    outline-offset: 2px;
+  }
+
+  .gallery img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    filter: saturate(0.9);
+    transition: transform 0.5s ease, filter 0.4s ease;
   }
 
-  .media-strip .media-cell:hover img {
-    transform: scale(1.04);
+  .gallery figure:hover img,
+  .gallery figure:focus-visible img {
+    transform: scale(1.05);
+    filter: saturate(1.05);
   }
+
+  .gallery figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 2rem 0.9rem 0.7rem;
+    background: linear-gradient(to top, rgba(44, 36, 22, 0.8), transparent);
+    color: var(--tan);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gallery figure:hover figcaption,
+  .gallery figure:focus-visible figcaption { opacity: 1; }
+
+  .g-wide { grid-column: span 2; }
+  .g-pano { grid-column: span 3; grid-row: span 2; }
+  .g-tall { grid-row: span 2; }
+  .g-feature { grid-column: span 2; grid-row: span 2; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(20, 16, 10, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem 1rem;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 84vh;
+    object-fit: contain;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .lb-caption {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 0; right: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lb-btn {
+    position: absolute;
+    background: none;
+    border: 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    padding: 1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .lb-btn:hover, .lb-btn:focus-visible { color: var(--mustard-light); }
+
+  .lb-close { top: 0.4rem; right: 0.8rem; font-size: 2rem; }
+  .lb-prev { left: 0.4rem; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 0.4rem; top: 50%; transform: translateY(-50%); }
 
   /* RESPONSIVE */
   @media (max-width: 700px) {
@@ -485,8 +572,12 @@
     .nav-links { display: none; }
     .listen-section { gap: 1.5rem; }
     .contact-bar { flex-direction: column; align-items: flex-start; }
-    .media-strip { grid-template-columns: 1fr; height: auto; }
-    .media-strip .media-cell { height: 65vw; }
+    .gallery-section { padding: 3.5rem 1.25rem; }
+    .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 9.5rem; gap: 0.4rem; }
+    .g-pano { grid-column: span 2; grid-row: span 1; }
+    .g-mobile-full { grid-column: span 2; }
+    .gallery figcaption { opacity: 1; font-size: 0.6rem; }
+    .lb-btn { font-size: 1.8rem; padding: 0.6rem; }
   }
 </style>
 </head>
@@ -589,42 +680,100 @@
       <span class="show-tickets free" style="opacity:0.5;">Past</span>
     </div>
 
-    <div class="show-item">
+    <div class="show-item show-past">
       <div class="show-date">
         <span class="month">Aug</span>
         22
       </div>
       <div>
         <div class="show-venue">JP Porchfest</div>
-        <div class="show-details">Details coming soon</div>
+        <div class="show-details">175 Amory St · 4:00–6:00 pm</div>
       </div>
-      <a class="show-tickets free" href="https://www.jpporchfest.org/" target="_blank">Free · Info</a>
+      <span class="show-tickets free" style="opacity:0.5;">Past</span>
     </div>
 
-    <div class="show-item">
+    <div class="show-item show-past">
       <div class="show-date">
         <span class="month">Aug</span>
         29
       </div>
       <div>
-        <div class="show-venue">TBD</div>
-        <div class="show-details">Details coming soon</div>
+        <div class="show-venue">VB3 Fundraiser</div>
+        <div class="show-details">Guilford, CT · 12:00–2:00 pm</div>
       </div>
-      <span class="show-tickets free">Free</span>
+      <span class="show-tickets free" style="opacity:0.5;">Past</span>
     </div>
 
   </div>
 </section>
 
 <!-- PHOTOS -->
-<section class="media-strip" id="photos">
-  <div class="media-cell">
-    <img src="onemonthmax-2.jpg" alt="One Month Max" style="object-position: center 40%;">
-  </div>
-  <div class="media-cell">
-    <img src="hair%20shake-2026-05-09.gif" alt="One Month Max vibes" style="object-position: center 25%;">
+<section class="gallery-section" id="photos">
+  <h2 class="section-title">Photo Gallery</h2>
+  <div class="gallery">
+    <figure class="g-feature" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_band.jpg" alt="One Month Max playing on a Somerville porch">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_berthy.jpg" alt="Berthy singing and playing a white Telecaster">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_matt.jpg" alt="Matt smiling behind a keyboard under green trees">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-wide" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_crowd.jpg" alt="A crowd under tents and umbrellas on a rainy Porchfest street" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_nate.jpg" alt="Nate playing a teal drum kit on the porch" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_ryan.jpg" alt="Ryan playing bass against a yellow clapboard wall" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-wide" tabindex="0" role="button" aria-label="Enlarge photo: Soundcheck Studios, April 27, 2026">
+      <img src="photos/web/Soundcheck-Studios_2026-04-27.jpg" alt="The band on stage at Soundcheck Studios under blue lights" loading="lazy">
+      <figcaption>Soundcheck Studios &middot; April 27, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_sam.jpg" alt="Sam holding a guitar, smiling at the camera" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_emma.jpg" alt="Emma singing into a microphone in an orange sweatshirt" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_unicorn.jpg" alt="An inflatable unicorn costume in the crowd, seen past a cymbal" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-tall" tabindex="0" role="button" aria-label="Enlarge photo: Somerville Porchfest, May 9, 2026">
+      <img src="photos/web/Somerville-Porchfest_2026-05-09_hairshake.gif" alt="Animated clip of the band mid-song" loading="lazy">
+      <figcaption>Somerville Porchfest &middot; May 9, 2026</figcaption>
+    </figure>
+    <figure class="g-pano" tabindex="0" role="button" aria-label="Enlarge photo: VB3, August 29, 2026">
+      <img src="photos/web/VB3_2026-08-29_settingup.jpg" alt="The band setting up gear on a sunny lawn" loading="lazy">
+      <figcaption>VB3 &middot; August 29, 2026</figcaption>
+    </figure>
+    <figure class="g-tall g-mobile-full" tabindex="0" role="button" aria-label="Enlarge photo: VB3, August 29, 2026">
+      <img src="photos/web/VB3_2026-08-29_radio.jpg" alt="The band celebrating with a 99.1 PLR radio sign" loading="lazy">
+      <figcaption>VB3 &middot; August 29, 2026</figcaption>
+    </figure>
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">&#8250;</button>
+  <p class="lb-caption" id="lbCaption"></p>
+</div>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -664,6 +813,58 @@
   </div>
   <p class="footer-copy">© 2026 One Month Max</p>
 </div>
+
+<script>
+(function () {
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.gallery figure'));
+  var box = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var caption = document.getElementById('lbCaption');
+  var current = 0;
+  var lastFocused = null;
+
+  function show(i) {
+    current = (i + figures.length) % figures.length;
+    var source = figures[current].querySelector('img');
+    img.src = source.getAttribute('src');
+    img.alt = source.getAttribute('alt');
+    caption.textContent = figures[current].querySelector('figcaption').textContent;
+  }
+
+  function open(i) {
+    lastFocused = document.activeElement;
+    show(i);
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus();
+  }
+
+  function close() {
+    box.classList.remove('open');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  figures.forEach(function (fig, i) {
+    fig.addEventListener('click', function () { open(i); });
+    fig.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+    });
+  });
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); show(current - 1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); show(current + 1); });
+  box.addEventListener('click', function (e) { if (e.target === box || e.target === img) close(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+  });
+})();
+</script>
 
 </body>
 </html>
